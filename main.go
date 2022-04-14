@@ -53,7 +53,7 @@ var rootCmd = &cobra.Command{
 			}
 			defer csvWriter.Flush()
 
-			for i := 1; i <= 1; i++ {
+			for i := 1; i <= SkipLeardingRows; i++ {
 				_, err := csvReader.Read()
 				if err != nil {
 					if err == io.EOF {
@@ -102,6 +102,12 @@ var rootCmd = &cobra.Command{
 			}
 		}
 	},
+}
+
+var SkipLeardingRows int
+
+func init() {
+	rootCmd.Flags().IntVar(&SkipLeardingRows, "skip-leading-rows", 0, "Number of rows to skip")
 }
 
 func main() {
